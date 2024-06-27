@@ -1,3 +1,12 @@
+" Initialization
+if exists("g:loaded_offload_explorer") || &cp
+  finish
+endif
+
+let s:cpo_save = &cpo
+set cpo&vim
+
+" Functions {{{
 " TODO add variadic args for cuda gpu version
 " TODO automatically compile in background on saving?
 " TODO get support for -###
@@ -37,4 +46,7 @@ function! offloadexplorer#ShowIR(IRformat)
     exec join(["!cp ", dpcpp_tmp_ir_folder, "/a.out ."], "")
   endif
 endfunction
+" }}}
 
+let &cpo = s:cpo_save
+unlet s:cpo_save
