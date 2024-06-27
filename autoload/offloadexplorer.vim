@@ -1,5 +1,5 @@
 " Initialization
-if exists("g:loaded_offload_explorer") || &cp
+if !exists("g:loaded_offload_explorer") || &cp
   finish
 endif
 
