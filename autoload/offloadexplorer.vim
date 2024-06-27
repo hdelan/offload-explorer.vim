@@ -11,13 +11,14 @@ set cpo&vim
 " TODO automatically compile in background on saving?
 " TODO get support for -###
 " TODO quickfix list
+function! CreateTmpDir()
+  let l:tmpfile = tempname()
+  call mkdir(l:tmpfile, 'p')
+  return l:tmpfile
+endfunction
+
 function! offloadexplorer#ShowIR(IRformat)
-  let dpcpp_tmp_ir_folder = "/home/hugh/.tmp_ir"
-  if !isdirectory(dpcpp_tmp_ir_folder)
-    exec join(["!mkdir", dpcpp_tmp_ir_folder])
-  elseif system(join(["ls ", dpcpp_tmp_ir_folder, " | wc -l"], "")) > 0
-    exec join(["!rm -fr ", dpcpp_tmp_ir_folder, "/*"], "")
-  endif
+  let dpcpp_tmp_ir_folder = CreateTmpDir()
 
   if a:IRformat == "ptx" || a:IRformat == "nvbc"
     let targets = "nvptx64-nvidia-cuda"
