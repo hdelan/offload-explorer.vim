@@ -27,7 +27,7 @@ function! offloadexplorer#ShowIR(IRformat)
 
   let working_file = expand('%:p')
 
-  let base_command = join(["!cd ", dpcpp_tmp_ir_folder, " && ", "clang++ -fsycl -Xclang -fsycl-disable-range-rounding -mllvm -enable-global-offset=false -fsycl-targets=", targets, " ", working_file], "")
+  let base_command = join(["!cd ", dpcpp_tmp_ir_folder, " && ", g:offload_explorer_cxx, " -fsycl -Xclang -fsycl-disable-range-rounding -mllvm -enable-global-offset=false -fsycl-targets=", targets, " ", working_file], "")
 
   if a:IRformat == "nvbc" || a:IRformat == "spirbc"
     let IRfile = join([dpcpp_tmp_ir_folder, working_file, ".ll"], "")

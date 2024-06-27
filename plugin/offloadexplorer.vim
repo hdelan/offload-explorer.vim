@@ -15,3 +15,5 @@ nnoremap <silent><Plug>OffloadExplorerShowCudaIR :<C-U>call offloadexplorer#Show
 nnoremap <silent><leader>cc <Plug>OffloadExplorerShowPTX
 nnoremap <silent><leader>bc <Plug>OffloadExplorerShowCudaIR
 
+" Variables
+let g:offload_explorer_cxx = get(g:, 'g:offload_explorer_cxx,', 'clang++')
