@@ -28,15 +28,14 @@ function! offloadexplorer#ShowIR(IRformat)
     let targets = "spir64-unknown-unknown"
   endif
 
-  let working_file = expand('%:p')
+  let working_file_full_path = expand('%:p')
 
-  let base_command = join(["!cd ", dpcpp_tmp_ir_folder, " && ", g:offload_explorer_cxx, " -fsycl -Xclang -fsycl-disable-range-rounding -mllvm -enable-global-offset=false -fsycl-targets=", targets, " ", working_file], "")
+  let base_command = join(["!cd ", dpcpp_tmp_ir_folder, " && ", g:offload_explorer_cxx, " -fsycl -Xclang -fsycl-disable-range-rounding -mllvm -enable-global-offset=false -fsycl-targets=", targets, " ", working_file_full_path], "")
 
   if a:IRformat == "nvbc" || a:IRformat == "amdbc" || a:IRformat == "spirbc"
-    let IRfile = join([dpcpp_tmp_ir_folder, working_file, ".ll"], "")
-    let IRfileL = fnamemodify(IRfile, ":t")
-    exec join([base_command, " -fsycl-device-only -S -o ", IRfileL], "")
-    exec join(["vsp ", dpcpp_tmp_ir_folder, "/", IRfileL], "")
+    let IRfile_full_path = join([dpcpp_tmp_ir_folder, "/", fnamemodify(working_file_full_path, ":t"), ".ll"], "")
+    exec join([base_command, " -fsycl-device-only -S -o ", IRfile_full_path], "")
+    exec join(["vsp ", IRfile_full_path], "")
     return
   else
     exec join([base_command, " -save-temps"], "")
