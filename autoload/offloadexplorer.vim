@@ -30,7 +30,7 @@ function! offloadexplorer#ShowIR(IRformat)
 
   let working_file_full_path = expand('%:p')
 
-  let base_command = join(["!cd ", dpcpp_tmp_ir_folder, " && ", g:offload_explorer_cxx, " -fsycl -Xclang -fsycl-disable-range-rounding -mllvm -enable-global-offset=false -fsycl-targets=", targets, " ", working_file_full_path], "")
+  let base_command = join(["!cd ", dpcpp_tmp_ir_folder, " && ", g:offload_explorer_cxx, " -fsycl -Xclang -fsycl-range-rounding=disable -mllvm -enable-global-offset=false -fsycl-targets=", targets, " ", working_file_full_path], "")
 
   if a:IRformat == "nvbc" || a:IRformat == "amdbc" || a:IRformat == "spirbc"
     let IRfile_full_path = join([dpcpp_tmp_ir_folder, "/", fnamemodify(working_file_full_path, ":t"), ".ll"], "")
