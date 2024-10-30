@@ -21,7 +21,7 @@ function! offloadexplorer#ShowIR(IRformat)
   let dpcpp_tmp_ir_folder = CreateTmpDir()
 
   if a:IRformat == "ptx" || a:IRformat == "nvbc"
-    let targets = "nvptx64-nvidia-cuda"
+    let targets = "nvidia_gpu_sm_60"
   elseif a:IRformat == "hsa" || a:IRformat == "amdbc"
     let targets = join(["amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=", g:offload_explorer_amd_arch], "")
   elseif a:IRformat == "spir"
